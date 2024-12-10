@@ -7,6 +7,8 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.ferraz.util.Utils.readInputFile;
+
 /*
 --- Day 1: Historian Hysteria ---
 The Chief Historian is always present for the big Christmas sleigh launch, but nobody has seen him in months! Last
@@ -112,17 +114,12 @@ public class Day01 {
         List<Integer> list1 = new ArrayList<>();
         List<Integer> list2 = new ArrayList<>();
 
-        InputStream inputStream = readInputFile();
+        InputStream inputStream = readInputFile(1);
         readLines(inputStream, list1, list2);
         sortLists(list1, list2);
         int totalDifference = getTotalDifference(list1, list2);
 
         System.out.println("Parte 1: " + totalDifference);
-    }
-
-    private static InputStream readInputFile() {
-        ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-        return classloader.getResourceAsStream("inputs/day01.txt");
     }
 
     private static void readLines(InputStream inputStream, List<Integer> list1, List<Integer> list2) throws IOException {
@@ -157,7 +154,7 @@ public class Day01 {
         List<Integer> list1 = new ArrayList<>();
         List<Integer> list2 = new ArrayList<>();
 
-        InputStream inputStream = readInputFile();
+        InputStream inputStream = readInputFile(1);
         readLines(inputStream, list1, list2);
         sortLists(list1, list2);
         int similarityScore = getSimilarityScore(list1, list2);
