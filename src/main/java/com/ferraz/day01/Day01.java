@@ -109,8 +109,8 @@ public class Day01 {
     }
 
     private static void part1() throws IOException {
-        List<String> list1 = new ArrayList<>();
-        List<String> list2 = new ArrayList<>();
+        List<Integer> list1 = new ArrayList<>();
+        List<Integer> list2 = new ArrayList<>();
 
         InputStream inputStream = readInputFile();
         readLines(inputStream, list1, list2);
@@ -121,44 +121,41 @@ public class Day01 {
     }
 
     private static InputStream readInputFile() {
-        // Ler arquivos de input do dia 01
         ClassLoader classloader = Thread.currentThread().getContextClassLoader();
         return classloader.getResourceAsStream("inputs/day01.txt");
     }
 
-    private static void readLines(InputStream inputStream, List<String> list1, List<String> list2) throws IOException {
+    private static void readLines(InputStream inputStream, List<Integer> list1, List<Integer> list2) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         String line = reader.readLine();
 
         while(line != null) {
             String[] values = line.split("   ");
-            list1.add(values[0]);
-            list2.add(values[1]);
+            list1.add(Integer.parseInt(values[0]));
+            list2.add(Integer.parseInt(values[1]));
             line = reader.readLine();
         }
     }
 
-    private static void sortLists(List<String> list1, List<String> list2) {
-        list1.sort(String::compareTo);
-        list2.sort(String::compareTo);
+    private static void sortLists(List<Integer> list1, List<Integer> list2) {
+        list1.sort(Integer::compareTo);
+        list2.sort(Integer::compareTo);
     }
 
-    private static int getTotalDifference(List<String> list1, List<String> list2) {
+    private static int getTotalDifference(List<Integer> list1, List<Integer> list2) {
         int totalDifference = 0;
 
         for(int i = 0; i < list1.size(); i++) {
-            int value1 = Integer.parseInt(list1.get(i));
-            int value2 = Integer.parseInt(list2.get(i));
-            int difference = Math.abs(value2 - value1);
-            totalDifference += difference;
+            totalDifference += Math.abs(list1.get(i) - list2.get(i));
         }
+
         return totalDifference;
     }
 
 
     private static void part2() throws IOException {
-        List<String> list1 = new ArrayList<>();
-        List<String> list2 = new ArrayList<>();
+        List<Integer> list1 = new ArrayList<>();
+        List<Integer> list2 = new ArrayList<>();
 
         InputStream inputStream = readInputFile();
         readLines(inputStream, list1, list2);
@@ -168,25 +165,21 @@ public class Day01 {
         System.out.println("Parte 2: " + similarityScore);
     }
 
-    private static int getSimilarityScore(List<String> list1, List<String> list2) {
+    private static int getSimilarityScore(List<Integer> list1, List<Integer> list2) {
         int similarityScore = 0;
         int list2Index = 0;
-        for(String item1: list1) {
-            int value1 = Integer.parseInt(item1);
-            int appearances = 0;
 
+        for(Integer value1: list1) {
             for(int y = list2Index; y < list2.size(); y++) {
-                int value2 = Integer.parseInt(list2.get(y));
+                int value2 = list2.get(y);
 
                 if (value2 < value1)
                     list2Index++;
                 else if (value2 > value1)
                     break;
                 else
-                    appearances++;
+                    similarityScore += value1;
             }
-
-            similarityScore += value1 * appearances;
         }
 
         return similarityScore;
