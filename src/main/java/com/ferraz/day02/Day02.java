@@ -109,15 +109,14 @@ public class Day02 {
     }
 
     private static boolean validValues(List<String> values, boolean problemDampener) {
-        boolean lastIncrease = Integer.parseInt(values.get(0)) < Integer.parseInt(values.get(1));
+        boolean increasing = Integer.parseInt(values.get(0)) < Integer.parseInt(values.get(1));
 
         for (int i = 0; i < values.size() - 1; i++) {
             int value1 = Integer.parseInt(values.get(i));
             int value2 = Integer.parseInt(values.get(i + 1));
 
             int diff = Math.abs(value1 - value2);
-            boolean error = (diff < 1 || diff > 3) || (lastIncrease && value1 > value2) || (!lastIncrease && value1 < value2);
-
+            boolean error = (diff < 1 || diff > 3) || (increasing && value1 > value2) || (!increasing && value1 < value2);
             if (!error)
                 continue;
 
