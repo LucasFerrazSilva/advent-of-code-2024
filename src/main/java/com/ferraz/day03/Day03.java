@@ -49,6 +49,10 @@ public class Day03 extends Day {
         super(3);
     }
 
+    public Day03(boolean useSample) {
+        super(3, useSample);
+    }
+
     @Override
     public long part1() throws IOException {
         return multiplyValidMuls(false);

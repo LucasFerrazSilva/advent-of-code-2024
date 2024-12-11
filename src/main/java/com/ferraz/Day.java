@@ -6,9 +6,14 @@ import java.io.InputStream;
 public abstract class Day {
 
     protected final int day;
+    private final boolean useSample;
 
     protected Day(int day) {
+        this(day, false);
+    }
+    protected Day(int day, boolean useSample) {
         this.day = day;
+        this.useSample = useSample;
     }
 
     public void run() {
@@ -53,7 +58,7 @@ public abstract class Day {
 
     protected InputStream readInputFile() {
         ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-        String fileName = "inputs/day%02d.txt".formatted(day);
+        String fileName = (useSample ? "inputs/day%02d_sample.txt" : "inputs/day%02d.txt").formatted(day);
         return classloader.getResourceAsStream(fileName);
     }
 

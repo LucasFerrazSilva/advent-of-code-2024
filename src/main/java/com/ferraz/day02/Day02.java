@@ -68,6 +68,10 @@ public class Day02 extends Day {
         super(2);
     }
 
+    public Day02(boolean useSample) {
+        super(2, useSample);
+    }
+
     // Answer: 321
     public long part1() throws IOException {
         return readLines(false);

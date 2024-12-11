@@ -102,6 +102,10 @@ public class Day01 extends Day {
         super(1);
     }
 
+    public Day01(boolean useSample) {
+        super(1, useSample);
+    }
+
     @Override
     public long part1() throws IOException {
         List<Integer> list1 = new ArrayList<>();
