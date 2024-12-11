@@ -25,7 +25,7 @@ public class Day03Test {
         long initialTime = System.currentTimeMillis();
         long answer = day.part2();
         printResults(answer, initialTime);
-        Assert.assertEquals(0, answer);
+        Assert.assertEquals(107862689, answer);
     }
 
 }

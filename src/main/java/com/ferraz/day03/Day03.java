@@ -3,7 +3,6 @@ package com.ferraz.day03;
 import com.ferraz.Day;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
@@ -25,6 +24,24 @@ xmul(2,4)%&mul[3,7]!@^do_not_mul(5,5)+mul(32,64]then(mul(11,8)mul(8,5))
 Only the four highlighted sections are real mul instructions. Adding up the result of each instruction produces 161 (2*4 + 5*5 + 11*8 + 8*5).
 
 Scan the corrupted memory for uncorrupted mul instructions. What do you get if you add up all of the results of the multiplications?
+
+--- Part Two ---
+As you scan through the corrupted memory, you notice that some of the conditional statements are also still intact. If you handle some of the uncorrupted conditional statements in the program, you might be able to get an even more accurate result.
+
+There are two new instructions you'll need to handle:
+
+The do() instruction enables future mul instructions.
+The don't() instruction disables future mul instructions.
+Only the most recent do() or don't() instruction applies. At the beginning of the program, mul instructions are enabled.
+
+For example:
+
+xmul(2,4)&mul[3,7]!^don't()_mul(5,5)+mul(32,64](mul(11,8)undo()?mul(8,5))
+This corrupted memory is similar to the example from before, but this time the mul(5,5) and mul(11,8) instructions are disabled because there is a don't() instruction before them. The other mul instructions function normally, including the one at the end that gets re-enabled by a do() instruction.
+
+This time, the sum of the results is 48 (2*4 + 8*5).
+
+Handle the new instructions; what do you get if you add up all of the results of just the enabled multiplications?
  */
 public class Day03 extends Day {
 
@@ -34,47 +51,60 @@ public class Day03 extends Day {
 
     @Override
     public long part1() throws IOException {
-        return multiplyValidMuls();
+        return multiplyValidMuls(false);
     }
 
     @Override
     public long part2() throws IOException {
-        return 0;
+        return multiplyValidMuls(true);
     }
 
-    private int multiplyValidMuls() throws IOException {
-        try(BufferedReader reader = new BufferedReader(new InputStreamReader(readInputFile()))) {
-            int total = 0;
+    private int multiplyValidMuls(boolean considerEnabler) throws IOException {
+        int total = 0;
+        String command = "";
+        boolean enabled = true;
 
-            String line;
-            StringBuilder commandsBuilder = new StringBuilder();
+        String commands = readCommands();
+        for(char c: commands.toCharArray()) {
+            command += c;
 
-            while((line = reader.readLine()) != null) {
-                commandsBuilder.append(line);
-            }
-
-            String commands = commandsBuilder.toString();
-
-            String command = "";
-
-            for(char c: commands.toCharArray()) {
-                command += c;
-
-                if (c == 'm') {
-                    command = "" + c;
-                    continue;
+            if (considerEnabler) {
+                if (command.contains("don't()")) {
+                    enabled = false;
+                    command = "";
                 }
-
-                if (c == ')') {
-                    if (command.matches("(mul\\(){1}\\d{1,3}[,]\\d{1,3}\\)")) {
-                        total += multiply(command);
-                    }
-
+                else if(command.contains("do()")) {
+                    enabled = true;
                     command = "";
                 }
             }
 
-            return total;
+            if (!enabled)
+                continue;
+
+            if (c == 'm') {
+                command = "" + c;
+            } else if (c == ')') {
+                if (command.matches("(mul\\()\\d{1,3},\\d{1,3}\\)"))
+                    total += multiply(command);
+
+                command = "";
+            }
+        }
+
+        return total;
+    }
+
+    private String readCommands() throws IOException {
+        try(BufferedReader reader = new BufferedReader(new InputStreamReader(readInputFile()))) {
+
+            String line;
+            StringBuilder commandsBuilder = new StringBuilder();
+            while((line = reader.readLine()) != null) {
+                commandsBuilder.append(line);
+            }
+
+            return commandsBuilder.toString();
         }
     }
 
