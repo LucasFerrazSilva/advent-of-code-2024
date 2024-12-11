@@ -29,8 +29,8 @@ public abstract class Day {
         }
     }
 
-    protected abstract long part1() throws IOException;
-    protected abstract long part2() throws IOException;
+    public abstract long part1() throws IOException;
+    public abstract long part2() throws IOException;
 
     protected void initDay(int day) {
         System.out.printf("%n--==< Dia %02d >==--%n%n", day);

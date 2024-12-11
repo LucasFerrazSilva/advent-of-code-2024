@@ -103,7 +103,7 @@ public class Day01 extends Day {
     }
 
     @Override
-    protected long part1() throws IOException {
+    public long part1() throws IOException {
         List<Integer> list1 = new ArrayList<>();
         List<Integer> list2 = new ArrayList<>();
 
@@ -114,7 +114,7 @@ public class Day01 extends Day {
     }
 
     @Override
-    protected long part2() throws IOException {
+    public long part2() throws IOException {
         List<Integer> list1 = new ArrayList<>();
         List<Integer> list2 = new ArrayList<>();
 
