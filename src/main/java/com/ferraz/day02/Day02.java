@@ -1,5 +1,13 @@
 package com.ferraz.day02;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import static com.ferraz.util.Utils.*;
 
 /*
@@ -35,10 +43,29 @@ In the example above, the reports can be found safe or unsafe by checking those 
 So, in this example, 2 reports are safe.
 
 Analyze the unusual data from the engineers. How many reports are safe?
+
+--- Part Two ---
+The engineers are surprised by the low number of safe reports until they realize they forgot to tell you about the Problem Dampener.
+
+The Problem Dampener is a reactor-mounted module that lets the reactor safety systems tolerate a single bad level in what would otherwise be a safe report. It's like the bad level never happened!
+
+Now, the same rules apply as before, except if removing a single level from an unsafe report would make it safe, the report instead counts as safe.
+
+More of the above example's reports are now safe:
+
+7 6 4 2 1: Safe without removing any level.
+1 2 7 8 9: Unsafe regardless of which level is removed.
+9 7 6 2 1: Unsafe regardless of which level is removed.
+1 3 2 4 5: Safe by removing the second level, 3.
+8 6 4 4 1: Safe by removing the third level, 4.
+1 3 6 7 9: Safe without removing any level.
+Thanks to the Problem Dampener, 4 reports are actually safe!
+
+Update your analysis by handling situations where the Problem Dampener can remove a single level from unsafe reports. How many reports are now safe?
  */
 public class Day02 {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         initDay(2);
 
         long initial = initPart(1);
@@ -52,12 +79,69 @@ public class Day02 {
         finishDay();
     }
 
-    public static long part1() {
-        return 0;
+    // Answer: 321
+    public static long part1() throws IOException {
+        InputStream inputStream = readInputFile(2);
+        return readLines(inputStream, false);
     }
 
-    public static long part2() {
-        return 0;
+    // Answer: 386
+    public static long part2() throws IOException {
+        InputStream inputStream = readInputFile(2);
+        return readLines(inputStream, true);
+    }
+
+
+    private static int readLines(InputStream inputStream, boolean problemDampener) throws IOException {
+        int validReports = 0;
+
+        try(BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+            String line;
+
+            while((line = reader.readLine()) != null) {
+                List<String> values = new ArrayList<>(Arrays.asList(line.split(" ")));
+                if (validValues(values, problemDampener))
+                    validReports++;
+            }
+
+            return validReports;
+        }
+    }
+
+    private static boolean validValues(List<String> values, boolean problemDampener) {
+        boolean lastIncrease = Integer.parseInt(values.get(0)) < Integer.parseInt(values.get(1));
+
+        for (int i = 0; i < values.size() - 1; i++) {
+            int value1 = Integer.parseInt(values.get(i));
+            int value2 = Integer.parseInt(values.get(i + 1));
+
+            int diff = Math.abs(value1 - value2);
+            boolean error = (diff < 1 || diff > 3) || (lastIncrease && value1 > value2) || (!lastIncrease && value1 < value2);
+
+            if (!error)
+                continue;
+
+            if (!problemDampener)
+                return false;
+
+            return  validValuesRemovingItem(values, i - 1)
+                    || validValuesRemovingItem(values, i)
+                    || validValuesRemovingItem(values, i + 1);
+        }
+
+        return true;
+    }
+
+    private static boolean validValuesRemovingItem(List<String> values, int removeItemIndex) {
+        if (removeItemIndex < 0)
+            return false;
+
+        if (removeItemIndex == values.size() - 1)
+            return true;
+
+        List<String> values2 = new ArrayList<>(values);
+        values2.remove(removeItemIndex);
+        return validValues(values2, false);
     }
 
 }

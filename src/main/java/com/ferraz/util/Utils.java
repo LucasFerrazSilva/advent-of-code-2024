@@ -25,7 +25,8 @@ public class Utils {
 
     public static InputStream readInputFile(int day) {
         ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-        return classloader.getResourceAsStream("inputs/day%2d.txt".formatted(day));
+        String fileName = "inputs/day%02d.txt".formatted(day);
+        return classloader.getResourceAsStream(fileName);
     }
 
 }

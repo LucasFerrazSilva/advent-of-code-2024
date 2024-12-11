@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.ferraz.util.Utils.readInputFile;
+import static com.ferraz.util.Utils.*;
 
 /*
 --- Day 1: Historian Hysteria ---
@@ -99,27 +99,27 @@ Once again consider your left and right lists. What is their similarity score?
 public class Day01 {
 
     public static void main(String[] args) throws IOException {
-        long initial = System.currentTimeMillis();
-        part1();
-        long end = System.currentTimeMillis();
-        System.out.println("Tempo total: " + (end - initial) + " ms\n");
+        initDay(1);
 
-        initial = System.currentTimeMillis();
-        part2();
-        end = System.currentTimeMillis();
-        System.out.println("Tempo total: " + (end - initial) + " ms");
+        long initial = initPart(1);
+        long answer = part1();
+        finishPart(answer, initial);
+
+        initial = initPart(2);
+        answer = part2();
+        finishPart(answer, initial);
+
+        finishDay();
     }
 
-    private static void part1() throws IOException {
+    private static int part1() throws IOException {
         List<Integer> list1 = new ArrayList<>();
         List<Integer> list2 = new ArrayList<>();
 
         InputStream inputStream = readInputFile(1);
         readLines(inputStream, list1, list2);
         sortLists(list1, list2);
-        int totalDifference = getTotalDifference(list1, list2);
-
-        System.out.println("Parte 1: " + totalDifference);
+        return getTotalDifference(list1, list2);
     }
 
     private static void readLines(InputStream inputStream, List<Integer> list1, List<Integer> list2) throws IOException {
@@ -150,16 +150,14 @@ public class Day01 {
     }
 
 
-    private static void part2() throws IOException {
+    private static int part2() throws IOException {
         List<Integer> list1 = new ArrayList<>();
         List<Integer> list2 = new ArrayList<>();
 
         InputStream inputStream = readInputFile(1);
         readLines(inputStream, list1, list2);
         sortLists(list1, list2);
-        int similarityScore = getSimilarityScore(list1, list2);
-
-        System.out.println("Parte 2: " + similarityScore);
+        return getSimilarityScore(list1, list2);
     }
 
     private static int getSimilarityScore(List<Integer> list1, List<Integer> list2) {
