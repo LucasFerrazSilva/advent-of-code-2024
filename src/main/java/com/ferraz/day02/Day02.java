@@ -1,14 +1,13 @@
 package com.ferraz.day02;
 
+import com.ferraz.Day;
+
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import static com.ferraz.util.Utils.*;
 
 /*
 --- Day 2: Red-Nosed Reports ---
@@ -63,39 +62,27 @@ Thanks to the Problem Dampener, 4 reports are actually safe!
 
 Update your analysis by handling situations where the Problem Dampener can remove a single level from unsafe reports. How many reports are now safe?
  */
-public class Day02 {
+public class Day02 extends Day {
 
-    public static void main(String[] args) throws IOException {
-        initDay(2);
-
-        long initial = initPart(1);
-        long answer = part1();
-        finishPart(answer, initial);
-
-        initial = initPart(2);
-        answer = part2();
-        finishPart(answer, initial);
-
-        finishDay();
+    public Day02() {
+        super(2);
     }
 
     // Answer: 321
-    public static long part1() throws IOException {
-        InputStream inputStream = readInputFile(2);
-        return readLines(inputStream, false);
+    public long part1() throws IOException {
+        return readLines(false);
     }
 
     // Answer: 386
-    public static long part2() throws IOException {
-        InputStream inputStream = readInputFile(2);
-        return readLines(inputStream, true);
+    public long part2() throws IOException {
+        return readLines(true);
     }
 
 
-    private static int readLines(InputStream inputStream, boolean problemDampener) throws IOException {
+    private int readLines(boolean problemDampener) throws IOException {
         int validReports = 0;
 
-        try(BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+        try(BufferedReader reader = new BufferedReader(new InputStreamReader(readInputFile()))) {
             String line;
 
             while((line = reader.readLine()) != null) {
@@ -108,7 +95,7 @@ public class Day02 {
         }
     }
 
-    private static boolean validValues(List<String> values, boolean problemDampener) {
+    private boolean validValues(List<String> values, boolean problemDampener) {
         boolean increasing = Integer.parseInt(values.get(0)) < Integer.parseInt(values.get(1));
 
         for (int i = 0; i < values.size() - 1; i++) {
@@ -131,7 +118,7 @@ public class Day02 {
         return true;
     }
 
-    private static boolean validValuesRemovingItem(List<String> values, int removeItemIndex) {
+    private boolean validValuesRemovingItem(List<String> values, int removeItemIndex) {
         if (removeItemIndex < 0)
             return false;
 

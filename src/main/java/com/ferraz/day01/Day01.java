@@ -1,13 +1,13 @@
 package com.ferraz.day01;
 
+import com.ferraz.Day;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.ferraz.util.Utils.*;
 
 /*
 --- Day 1: Historian Hysteria ---
@@ -96,30 +96,32 @@ So, for these example lists, the similarity score at the end of this process is 
 
 Once again consider your left and right lists. What is their similarity score?
  */
-public class Day01 {
+public class Day01 extends Day {
 
-    public static void main(String[] args) throws IOException {
-        initDay(1);
-
-        long initial = initPart(1);
-        long answer = part1();
-        finishPart(answer, initial);
-
-        initial = initPart(2);
-        answer = part2();
-        finishPart(answer, initial);
-
-        finishDay();
+    public Day01() {
+        super(1);
     }
 
-    private static int part1() throws IOException {
+    @Override
+    protected long part1() throws IOException {
         List<Integer> list1 = new ArrayList<>();
         List<Integer> list2 = new ArrayList<>();
 
-        InputStream inputStream = readInputFile(1);
+        InputStream inputStream = readInputFile();
         readLines(inputStream, list1, list2);
         sortLists(list1, list2);
         return getTotalDifference(list1, list2);
+    }
+
+    @Override
+    protected long part2() throws IOException {
+        List<Integer> list1 = new ArrayList<>();
+        List<Integer> list2 = new ArrayList<>();
+
+        InputStream inputStream = readInputFile();
+        readLines(inputStream, list1, list2);
+        sortLists(list1, list2);
+        return getSimilarityScore(list1, list2);
     }
 
     private static void readLines(InputStream inputStream, List<Integer> list1, List<Integer> list2) throws IOException {
@@ -134,12 +136,12 @@ public class Day01 {
         }
     }
 
-    private static void sortLists(List<Integer> list1, List<Integer> list2) {
+    private void sortLists(List<Integer> list1, List<Integer> list2) {
         list1.sort(Integer::compareTo);
         list2.sort(Integer::compareTo);
     }
 
-    private static int getTotalDifference(List<Integer> list1, List<Integer> list2) {
+    private int getTotalDifference(List<Integer> list1, List<Integer> list2) {
         int totalDifference = 0;
 
         for(int i = 0; i < list1.size(); i++) {
@@ -149,18 +151,7 @@ public class Day01 {
         return totalDifference;
     }
 
-
-    private static int part2() throws IOException {
-        List<Integer> list1 = new ArrayList<>();
-        List<Integer> list2 = new ArrayList<>();
-
-        InputStream inputStream = readInputFile(1);
-        readLines(inputStream, list1, list2);
-        sortLists(list1, list2);
-        return getSimilarityScore(list1, list2);
-    }
-
-    private static int getSimilarityScore(List<Integer> list1, List<Integer> list2) {
+    private int getSimilarityScore(List<Integer> list1, List<Integer> list2) {
         int similarityScore = 0;
         int list2Index = 0;
 
