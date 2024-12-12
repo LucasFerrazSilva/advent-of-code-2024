@@ -20,14 +20,12 @@ public class Day04 extends Day {
 
     @Override
     public long part1() throws IOException {
-        char[][] lettersMatrix = getLettersMatrix();
-        return countWord(lettersMatrix, false);
+        return countWord(false);
     }
 
     @Override
     public long part2() throws IOException {
-        char[][] lettersMatrix = getLettersMatrix();
-        return countWord(lettersMatrix, true);
+        return countWord(true);
     }
 
     private char[][] getLettersMatrix() throws IOException {
@@ -48,22 +46,23 @@ public class Day04 extends Day {
         }
     }
 
-    private long countWord(char[][] lettersMatrix, boolean xFactor) {
+    private long countWord(boolean xFactor) throws IOException {
+        char[][] lettersMatrix = getLettersMatrix();
+
         long count = 0;
+
+        char initialLetter = xFactor ? 'A' : 'X';
 
         for (int row = 0; row < lettersMatrix.length; row++) {
             for (int column = 0; column < lettersMatrix[row].length; column++) {
                 char letter = lettersMatrix[row][column];
 
-                if (xFactor) {
-                    if (letter != 'A')
-                        continue;
+                if (letter != initialLetter)
+                    continue;
 
+                if (xFactor) {
                     count += isXMas(lettersMatrix, row, column) ? 1 : 0;
                 } else {
-                    if (letter != 'X')
-                        continue;
-
                     count += countAllDirectionsFromThisLetter(lettersMatrix, row, column);
                 }
             }
