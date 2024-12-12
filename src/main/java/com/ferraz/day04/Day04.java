@@ -21,18 +21,17 @@ public class Day04 extends Day {
     @Override
     public long part1() throws IOException {
         char[][] lettersMatrix = getLettersMatrix();
-        return countWord(lettersMatrix);
+        return countWord(lettersMatrix, false);
     }
 
     @Override
     public long part2() throws IOException {
-        return 0;
+        char[][] lettersMatrix = getLettersMatrix();
+        return countWord(lettersMatrix, true);
     }
 
     private char[][] getLettersMatrix() throws IOException {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(readInputFile()))) {
-            long count = 0;
-
             List<String> lines = new ArrayList<>();
             String line;
             while ((line = reader.readLine()) != null) {
@@ -49,27 +48,49 @@ public class Day04 extends Day {
         }
     }
 
-    private long countWord(char[][] lettersMatrix) {
+    private long countWord(char[][] lettersMatrix, boolean xFactor) {
         long count = 0;
 
         for (int row = 0; row < lettersMatrix.length; row++) {
             for (int column = 0; column < lettersMatrix[row].length; column++) {
                 char letter = lettersMatrix[row][column];
 
-                if (letter != 'X')
-                    continue;
+                if (xFactor) {
+                    if (letter != 'A')
+                        continue;
 
-                count += countAllDirectionsFromThisLetter(lettersMatrix, row, column);
+                    count += isXMas(lettersMatrix, row, column) ? 1 : 0;
+                } else {
+                    if (letter != 'X')
+                        continue;
+
+                    count += countAllDirectionsFromThisLetter(lettersMatrix, row, column);
+                }
             }
         }
 
         return count;
     }
 
+    private boolean isXMas(char[][] letters, int row, int column) {
+        if (row <= 0 || row >= letters.length - 1 || column <= 0 || column >= letters[row].length - 1)
+            return false;
+
+        int left = -1;
+        int right = +1;
+
+        return foundStartingFrom(left, letters, row, column) && foundStartingFrom(right, letters, row, column);
+    }
+
+    private boolean foundStartingFrom(int j, char[][] lettersMatrix, int row, int column) {
+        return (lettersMatrix[row+1][column+j] == 'M' && lettersMatrix[row-1][column-j] == 'S')
+                || (lettersMatrix[row-1][column-j] == 'M' && lettersMatrix[row+1][column+j] == 'S');
+    }
+
     private int countAllDirectionsFromThisLetter(char[][] lettersMatrix, int row, int column) {
         int countsFromThisLetter = 0;
-        for (int rowIncrease = -1; rowIncrease <= 1; rowIncrease++) {
-            for (int columnIncreate = -1; columnIncreate <= 1; columnIncreate++) {
+        for (int rowIncrease = -1; rowIncrease <= 1; rowIncrease++) { // cima -> meio -> baixo
+            for (int columnIncreate = -1; columnIncreate <= 1; columnIncreate++) { // esquerda -> meio -> direita
                 if (validSequence(lettersMatrix, row, column, rowIncrease, columnIncreate)) {
                     countsFromThisLetter++;
                 }

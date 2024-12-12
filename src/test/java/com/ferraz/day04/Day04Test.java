@@ -1,7 +1,6 @@
 package com.ferraz.day04;
 
 import com.ferraz.Day;
-import junit.framework.TestCase;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -9,7 +8,7 @@ import java.io.IOException;
 
 import static com.ferraz.TestUtils.printResults;
 
-public class Day04Test extends TestCase {
+public class Day04Test {
 
     @Test
     public void testPart1Sample() throws IOException {
@@ -26,7 +25,7 @@ public class Day04Test extends TestCase {
         long initialTime = System.currentTimeMillis();
         long answer = day.part2();
         printResults(answer, initialTime);
-        Assert.assertEquals(0, answer);
+        Assert.assertEquals(9, answer);
     }
 
     @Test
@@ -44,7 +43,7 @@ public class Day04Test extends TestCase {
         long initialTime = System.currentTimeMillis();
         long answer = day.part2();
         printResults(answer, initialTime);
-        Assert.assertEquals(0, answer);
+        Assert.assertEquals(1890, answer);
     }
 
 }
