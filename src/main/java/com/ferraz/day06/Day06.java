@@ -5,7 +5,10 @@ import com.ferraz.Day;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import static java.util.stream.Collectors.toSet;
 
@@ -212,27 +215,25 @@ public class Day06 extends Day {
         AreaMap areaMap = getArea();
         Set<PositionDirection> visitedPositionsDirections = moveGuard(areaMap, false);
         Set<Position> visitedPositions =
-                visitedPositionsDirections.stream().map(PositionDirection::getPosition).collect(toSet());
+                visitedPositionsDirections.stream().map(PositionDirection::position).collect(toSet());
 
         if (!checkValidBlocks)
             return visitedPositions.size();
 
         Set<Position> validBlockPositions = new HashSet<>();
+        visitedPositions.remove(areaMap.getInitialPosition());
 
         for (Position position: visitedPositions) {
-            if (position.equals(areaMap.getInitialPosition()))
-                continue;
-
             areaMap.insertBlockAt(position);
-
-            boolean guardIsInLoop = moveGuard(areaMap, true).isEmpty();
-            if (guardIsInLoop)
-                validBlockPositions.add(position);
-
+            if (guardGoesIntoALoop(areaMap)) validBlockPositions.add(position);
             areaMap.removeBlockAt(position);
         }
 
         return validBlockPositions.size();
+    }
+
+    private boolean guardGoesIntoALoop(AreaMap areaMap) {
+        return moveGuard(areaMap, true).isEmpty();
     }
 
     private Set<PositionDirection> moveGuard(AreaMap areaMap, boolean checkIfIsInLoop) {

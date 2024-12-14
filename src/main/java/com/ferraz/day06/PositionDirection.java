@@ -1,23 +1,9 @@
 package com.ferraz.day06;
 
-public class PositionDirection {
-
-    private final Position position;
-    private final Direction direction;
-
-
-    public PositionDirection(Position position, Direction direction) {
-        this.position = position;
-        this.direction = direction;
-    }
-
-
-    public Position getNextPosition() {
-        return position.move(direction);
-    }
+public record PositionDirection(Position position, Direction direction) {
 
     public boolean isInside(AreaMap areaMap) {
-        return areaMap.contains(position);
+        return areaMap.isValid(position);
     }
 
     public boolean cantMoveForward(AreaMap areaMap) {
@@ -33,29 +19,4 @@ public class PositionDirection {
         return new PositionDirection(position.move(direction), direction);
     }
 
-
-    public Position getPosition() {
-        return position;
-    }
-
-    public Direction getDirection() {
-        return direction;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        if (!(object instanceof PositionDirection other))
-            return false;
-
-        return this.direction.equals(other.direction) && this.position.equals(other.position);
-    }
-
-    @Override
-    public int hashCode() {
-        return this.direction.hashCode() + this.position.hashCode();
-    }
-
-    public PositionDirection copy() {
-        return new PositionDirection(position, direction);
-    }
 }
