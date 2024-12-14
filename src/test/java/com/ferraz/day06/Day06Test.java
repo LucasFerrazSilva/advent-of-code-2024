@@ -34,7 +34,7 @@ public class Day06Test {
         long initialTime = System.currentTimeMillis();
         long answer = day.part2();
         printResults(answer, initialTime);
-        Assert.assertEquals(-1, answer);
+        Assert.assertEquals(6, answer);
     }
 
     @Test
@@ -43,7 +43,7 @@ public class Day06Test {
         long initialTime = System.currentTimeMillis();
         long answer = day.part2();
         printResults(answer, initialTime);
-        Assert.assertEquals(-1, answer);
+        Assert.assertEquals(1424, answer);
     }
 
 }
