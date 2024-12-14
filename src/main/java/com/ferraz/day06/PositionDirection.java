@@ -16,13 +16,13 @@ public class PositionDirection {
         return position.move(direction);
     }
 
-    public boolean isInside(Area area) {
-        return area.contains(position);
+    public boolean isInside(AreaMap areaMap) {
+        return areaMap.contains(position);
     }
 
-    public boolean cantMoveForwardIn(Area area) {
+    public boolean cantMoveForward(AreaMap areaMap) {
         Position nextPosition = position.move(direction);
-        return area.hasBlockAt(nextPosition);
+        return areaMap.hasBlockAt(nextPosition);
     }
 
     public PositionDirection turn() {

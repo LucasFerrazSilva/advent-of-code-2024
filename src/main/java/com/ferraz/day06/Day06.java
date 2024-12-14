@@ -6,7 +6,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toSet;
 
 /*
 --- Day 6: Guard Gallivant ---
@@ -208,54 +209,52 @@ public class Day06 extends Day {
     }
 
     private long execute(boolean checkValidBlocks) throws IOException {
-        Area area = getArea();
-        Set<Position> visitedPositions = moveGuard(area, false);
+        AreaMap areaMap = getArea();
+        Set<PositionDirection> visitedPositionsDirections = moveGuard(areaMap, false);
+        Set<Position> visitedPositions =
+                visitedPositionsDirections.stream().map(PositionDirection::getPosition).collect(toSet());
 
         if (!checkValidBlocks)
             return visitedPositions.size();
 
-        visitedPositions.remove(area.getInitialPosition());
-
         Set<Position> validBlockPositions = new HashSet<>();
 
         for (Position position: visitedPositions) {
-            area.insertBlockAt(position);
+            if (position.equals(areaMap.getInitialPosition()))
+                continue;
 
-            if (guardIsInLoop(area))
+            areaMap.insertBlockAt(position);
+
+            boolean guardIsInLoop = moveGuard(areaMap, true).isEmpty();
+            if (guardIsInLoop)
                 validBlockPositions.add(position);
 
-            area.removeBlockAt(position);
+            areaMap.removeBlockAt(position);
         }
 
         return validBlockPositions.size();
     }
 
-    private boolean guardIsInLoop(Area area) {
-        return moveGuard(area, true).isEmpty();
-    }
-
-    private Set<Position> moveGuard(Area area, boolean checkIfIsInLoop) {
+    private Set<PositionDirection> moveGuard(AreaMap areaMap, boolean checkIfIsInLoop) {
         Set<PositionDirection> visitedPositionsDirections = new HashSet<>();
-        Set<Position> visitedPositions = new HashSet<>();
-        PositionDirection guard = area.getInitialPositionDirection();
+        PositionDirection guardPosition = areaMap.getInitialPositionDirection();
 
-        while(guard.isInside(area)) {
-            if (checkIfIsInLoop && visitedPositionsDirections.contains(guard))
+        while(guardPosition.isInside(areaMap)) {
+            if (checkIfIsInLoop && visitedPositionsDirections.contains(guardPosition))
                 return new HashSet<>();
 
-            visitedPositionsDirections.add(guard);
-            visitedPositions.add(guard.getPosition());
+            visitedPositionsDirections.add(guardPosition);
 
-            while (guard.cantMoveForwardIn(area))
-                guard = guard.turn();
+            while (guardPosition.cantMoveForward(areaMap))
+                guardPosition = guardPosition.turn();
 
-            guard = guard.move();
+            guardPosition = guardPosition.move();
         }
 
-        return visitedPositions;
+        return visitedPositionsDirections;
     }
 
-    private Area getArea() throws IOException {
+    private AreaMap getArea() throws IOException {
         try(BufferedReader reader = new BufferedReader(new InputStreamReader(readInputFile()))) {
             List<char[]> lines = new ArrayList<>();
             Position initialPosition = null;
@@ -269,7 +268,7 @@ public class Day06 extends Day {
             }
 
             char[][] matrix = lines.toArray(new char[lines.size()][lines.getFirst().length]);
-            return new Area(matrix, initialPosition);
+            return new AreaMap(matrix, initialPosition);
         }
     }
 

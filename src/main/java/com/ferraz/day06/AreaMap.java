@@ -1,6 +1,6 @@
 package com.ferraz.day06;
 
-public class Area {
+public class AreaMap {
 
     private final char[][] matrix;
     private final Position initialPosition;
@@ -8,7 +8,7 @@ public class Area {
     private static final char NO_BLOCK_SYMBOL = '.';
 
 
-    public Area(char[][] matrix, Position initialPosition) {
+    public AreaMap(char[][] matrix, Position initialPosition) {
         this.matrix = matrix;
         this.initialPosition = initialPosition;
     }
