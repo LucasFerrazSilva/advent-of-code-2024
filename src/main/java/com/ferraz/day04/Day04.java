@@ -10,43 +10,17 @@ import java.util.List;
 
 public class Day04 extends Day {
 
-    public Day04() {
-        super(4);
-    }
-
     public Day04(boolean useSample) {
-        super(4, useSample);
+        super(useSample);
     }
 
     @Override
-    public long part1() throws IOException {
-        return countWord(false);
+    public int getDay() {
+        return 4;
     }
 
     @Override
-    public long part2() throws IOException {
-        return countWord(true);
-    }
-
-    private char[][] getLettersMatrix() throws IOException {
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(readInputFile()))) {
-            List<String> lines = new ArrayList<>();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                lines.add(line);
-            }
-
-            char[][] lettersMatrix = new char[lines.size()][lines.getFirst().length()];
-
-            for(int row = 0; row < lines.size(); row++) {
-                lettersMatrix[row] = lines.get(row).toCharArray();
-            }
-
-            return lettersMatrix;
-        }
-    }
-
-    private long countWord(boolean xFactor) throws IOException {
+    protected long execute(boolean xFactor) throws IOException {
         char[][] lettersMatrix = getLettersMatrix();
 
         long count = 0;
@@ -69,6 +43,24 @@ public class Day04 extends Day {
         }
 
         return count;
+    }
+
+    private char[][] getLettersMatrix() throws IOException {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(readInputFile()))) {
+            List<String> lines = new ArrayList<>();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                lines.add(line);
+            }
+
+            char[][] lettersMatrix = new char[lines.size()][lines.getFirst().length()];
+
+            for(int row = 0; row < lines.size(); row++) {
+                lettersMatrix[row] = lines.get(row).toCharArray();
+            }
+
+            return lettersMatrix;
+        }
     }
 
     private boolean isXMas(char[][] letters, int row, int column) {

@@ -11,9 +11,9 @@ public class Main {
 
     private static List<Day> days =
             List.of(
-                    new Day01(),
-                    new Day02(),
-                    new Day03()
+                    new Day01(false),
+                    new Day02(false),
+                    new Day03(false)
             );
 
     public static void main(String[] args) throws IOException {

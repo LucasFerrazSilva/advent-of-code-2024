@@ -45,25 +45,17 @@ Handle the new instructions; what do you get if you add up all of the results of
  */
 public class Day03 extends Day {
 
-    public Day03() {
-        super(3);
-    }
-
     public Day03(boolean useSample) {
-        super(3, useSample);
+        super(useSample);
     }
 
     @Override
-    public long part1() throws IOException {
-        return multiplyValidMuls(false);
+    public int getDay() {
+        return 3;
     }
 
     @Override
-    public long part2() throws IOException {
-        return multiplyValidMuls(true);
-    }
-
-    private int multiplyValidMuls(boolean considerEnabler) throws IOException {
+    protected long execute(boolean considerEnabler) throws IOException {
         int total = 0;
         String command = "";
         boolean enabled = true;

@@ -98,34 +98,25 @@ Once again consider your left and right lists. What is their similarity score?
  */
 public class Day01 extends Day {
 
-    public Day01() {
-        super(1);
-    }
-
     public Day01(boolean useSample) {
-        super(1, useSample);
+        super(useSample);
     }
 
     @Override
-    public long part1() throws IOException {
+    public int getDay() {
+        return 1;
+    }
+
+    @Override
+    protected long execute(boolean considerSimilarityScore) throws IOException {
         List<Integer> list1 = new ArrayList<>();
         List<Integer> list2 = new ArrayList<>();
 
         InputStream inputStream = readInputFile();
         readLines(inputStream, list1, list2);
         sortLists(list1, list2);
-        return getTotalDifference(list1, list2);
-    }
+        return considerSimilarityScore ? getSimilarityScore(list1, list2) : getTotalDifference(list1, list2);
 
-    @Override
-    public long part2() throws IOException {
-        List<Integer> list1 = new ArrayList<>();
-        List<Integer> list2 = new ArrayList<>();
-
-        InputStream inputStream = readInputFile();
-        readLines(inputStream, list1, list2);
-        sortLists(list1, list2);
-        return getSimilarityScore(list1, list2);
     }
 
     private static void readLines(InputStream inputStream, List<Integer> list1, List<Integer> list2) throws IOException {

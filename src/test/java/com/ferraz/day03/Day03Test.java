@@ -30,7 +30,7 @@ public class Day03Test {
 
     @Test
     public void testPart1() throws IOException {
-        Day day = new Day03();
+        Day day = new Day03(false);
         long initialTime = System.currentTimeMillis();
         long answer = day.part1();
         printResults(answer, initialTime);
@@ -39,7 +39,7 @@ public class Day03Test {
 
     @Test
     public void testPart2() throws IOException {
-        Day day = new Day03();
+        Day day = new Day03(false);
         long initialTime = System.currentTimeMillis();
         long answer = day.part2();
         printResults(answer, initialTime);

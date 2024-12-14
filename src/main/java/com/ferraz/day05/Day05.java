@@ -99,25 +99,17 @@ Find the updates which are not in the correct order. What do you get if you add 
  */
 public class Day05 extends Day {
 
-    public Day05() {
-        super(5);
-    }
-
     public Day05(boolean useSample) {
-        super(5, useSample);
+        super(useSample);
     }
 
     @Override
-    public long part1() throws IOException {
-        return execute(false);
+    public int getDay() {
+        return 5;
     }
 
     @Override
-    public long part2() throws IOException {
-        return execute(true);
-    }
-
-    private long execute(boolean countInvalid) throws IOException {
+    protected long execute(boolean countInvalid) throws IOException {
         try(BufferedReader reader = new BufferedReader(new InputStreamReader(readInputFile()))) {
             Map<Integer, Set<Integer>> rulesForNumber = getRulesForNumber(reader);
 

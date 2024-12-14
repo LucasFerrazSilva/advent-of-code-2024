@@ -64,26 +64,17 @@ Update your analysis by handling situations where the Problem Dampener can remov
  */
 public class Day02 extends Day {
 
-    public Day02() {
-        super(2);
-    }
-
     public Day02(boolean useSample) {
-        super(2, useSample);
+        super(useSample);
     }
 
-    // Answer: 321
-    public long part1() throws IOException {
-        return readLines(false);
+    @Override
+    public int getDay() {
+        return 2;
     }
 
-    // Answer: 386
-    public long part2() throws IOException {
-        return readLines(true);
-    }
-
-
-    private int readLines(boolean problemDampener) throws IOException {
+    @Override
+    protected long execute(boolean problemDampener) throws IOException {
         int validReports = 0;
 
         try(BufferedReader reader = new BufferedReader(new InputStreamReader(readInputFile()))) {

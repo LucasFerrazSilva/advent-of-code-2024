@@ -5,20 +5,15 @@ import java.io.InputStream;
 
 public abstract class Day {
 
-    protected final int day;
     private final boolean useSample;
 
-    protected Day(int day) {
-        this(day, false);
-    }
-    protected Day(int day, boolean useSample) {
-        this.day = day;
+    protected Day(boolean useSample) {
         this.useSample = useSample;
     }
 
     public void run() {
         try {
-            initDay(day);
+            initDay();
 
             long initial = initPart(1);
             long answer = part1();
@@ -34,11 +29,19 @@ public abstract class Day {
         }
     }
 
-    public abstract long part1() throws IOException;
-    public abstract long part2() throws IOException;
+    public abstract int getDay();
+    protected abstract long execute(boolean hardModeParam) throws IOException;
 
-    protected void initDay(int day) {
-        System.out.printf("%n--==< Dia %02d >==--%n%n", day);
+    public long part1() throws IOException {
+        return execute(false);
+    }
+
+    public long part2() throws IOException {
+        return execute(true);
+    }
+
+    protected void initDay() {
+        System.out.printf("%n--==< Dia %02d >==--%n%n", getDay());
     }
 
     protected void finishDay() {
@@ -58,7 +61,7 @@ public abstract class Day {
 
     protected InputStream readInputFile() {
         ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-        String fileName = (useSample ? "inputs/day%02d_sample.txt" : "inputs/day%02d.txt").formatted(day);
+        String fileName = (useSample ? "inputs/day%02d_sample.txt" : "inputs/day%02d.txt").formatted(getDay());
         return classloader.getResourceAsStream(fileName);
     }
 

@@ -193,25 +193,17 @@ You need to get the guard stuck in a loop by adding a single new obstruction. Ho
  */
 public class Day06 extends Day {
 
-    public Day06() {
-        super(6);
-    }
-
     public Day06(boolean useSample) {
-        super(6, useSample);
+        super(useSample);
     }
 
     @Override
-    public long part1() throws IOException {
-        return execute(false);
+    public int getDay() {
+        return 6;
     }
 
     @Override
-    public long part2() throws IOException {
-        return execute(true);
-    }
-
-    private long execute(boolean checkValidBlocks) throws IOException {
+    protected long execute(boolean checkValidBlocks) throws IOException {
         AreaMap areaMap = getArea();
         Set<PositionDirection> visitedPositionsDirections = moveGuard(areaMap, false);
         Set<Position> visitedPositions =
