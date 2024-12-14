@@ -1,7 +1,9 @@
 package com.ferraz;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public abstract class Day {
 
@@ -30,14 +32,20 @@ public abstract class Day {
     }
 
     public abstract int getDay();
-    protected abstract long execute(boolean hardModeParam) throws IOException;
+    protected abstract long execute(boolean hardModeParam, BufferedReader reader) throws IOException;
 
     public long part1() throws IOException {
-        return execute(false);
+        return prepareExecute(false);
     }
 
     public long part2() throws IOException {
-        return execute(true);
+        return prepareExecute(true);
+    }
+
+    protected long prepareExecute(boolean hardModeParam) throws IOException {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(readInputFile()))) {
+            return execute(hardModeParam, reader);
+        }
     }
 
     protected void initDay() {

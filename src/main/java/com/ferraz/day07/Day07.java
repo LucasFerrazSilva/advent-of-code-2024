@@ -2,7 +2,7 @@ package com.ferraz.day07;
 
 import com.ferraz.Day;
 
-import java.io.IOException;
+import java.io.BufferedReader;
 
 public class Day07 extends Day {
 
@@ -16,7 +16,9 @@ public class Day07 extends Day {
     }
 
     @Override
-    protected long execute(boolean hardModeParam) {
+    protected long execute(boolean hardModeParam, BufferedReader reader) {
+
+
         return 0;
     }
 

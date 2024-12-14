@@ -203,8 +203,8 @@ public class Day06 extends Day {
     }
 
     @Override
-    protected long execute(boolean checkValidBlocks) throws IOException {
-        AreaMap areaMap = getArea();
+    protected long execute(boolean checkValidBlocks, BufferedReader reader) throws IOException {
+        AreaMap areaMap = getArea(reader);
         Set<PositionDirection> visitedPositionsDirections = moveGuard(areaMap, false);
         Set<Position> visitedPositions =
                 visitedPositionsDirections.stream().map(PositionDirection::position).collect(toSet());
@@ -247,22 +247,20 @@ public class Day06 extends Day {
         return visitedPositionsDirections;
     }
 
-    private AreaMap getArea() throws IOException {
-        try(BufferedReader reader = new BufferedReader(new InputStreamReader(readInputFile()))) {
-            List<char[]> lines = new ArrayList<>();
-            Position initialPosition = null;
+    private AreaMap getArea(BufferedReader reader) throws IOException {
+        List<char[]> lines = new ArrayList<>();
+        Position initialPosition = null;
 
-            String line;
-            while((line = reader.readLine()) != null) {
-                lines.add(line.toCharArray());
+        String line;
+        while((line = reader.readLine()) != null) {
+            lines.add(line.toCharArray());
 
-                if (line.contains("^"))
-                    initialPosition = new Position(lines.size() - 1, line.indexOf("^"));
-            }
-
-            char[][] matrix = lines.toArray(new char[lines.size()][lines.getFirst().length]);
-            return new AreaMap(matrix, initialPosition);
+            if (line.contains("^"))
+                initialPosition = new Position(lines.size() - 1, line.indexOf("^"));
         }
+
+        char[][] matrix = lines.toArray(new char[lines.size()][lines.getFirst().length]);
+        return new AreaMap(matrix, initialPosition);
     }
 
 }

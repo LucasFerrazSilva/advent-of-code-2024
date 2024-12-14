@@ -109,30 +109,28 @@ public class Day05 extends Day {
     }
 
     @Override
-    protected long execute(boolean countInvalid) throws IOException {
-        try(BufferedReader reader = new BufferedReader(new InputStreamReader(readInputFile()))) {
-            Map<Integer, Set<Integer>> rulesForNumber = getRulesForNumber(reader);
+    protected long execute(boolean countInvalid, BufferedReader reader) throws IOException {
+        Map<Integer, Set<Integer>> rulesForNumber = getRulesForNumber(reader);
 
-            long sum = 0;
+        long sum = 0;
 
-            String update;
-            while((update = reader.readLine()) != null) {
-                List<Integer> numbers = getNumbers(update);
+        String update;
+        while((update = reader.readLine()) != null) {
+            List<Integer> numbers = getNumbers(update);
 
-                boolean validUpdate = isValidUpdate(numbers, rulesForNumber);
+            boolean validUpdate = isValidUpdate(numbers, rulesForNumber);
 
-                if (countInvalid == validUpdate)
-                    continue;
+            if (countInvalid == validUpdate)
+                continue;
 
-                if (countInvalid)
-                    numbers = reorderNumbers(numbers, rulesForNumber);
+            if (countInvalid)
+                numbers = reorderNumbers(numbers, rulesForNumber);
 
-                int middleIndex = numbers.size() / 2;
-                sum += numbers.get(middleIndex);
-            }
-
-            return sum;
+            int middleIndex = numbers.size() / 2;
+            sum += numbers.get(middleIndex);
         }
+
+        return sum;
     }
 
     private List<Integer> reorderNumbers(List<Integer> numbers, Map<Integer, Set<Integer>> rulesForNumber) {

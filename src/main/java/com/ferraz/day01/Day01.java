@@ -108,19 +108,17 @@ public class Day01 extends Day {
     }
 
     @Override
-    protected long execute(boolean considerSimilarityScore) throws IOException {
+    protected long execute(boolean considerSimilarityScore, BufferedReader reader) throws IOException {
         List<Integer> list1 = new ArrayList<>();
         List<Integer> list2 = new ArrayList<>();
 
-        InputStream inputStream = readInputFile();
-        readLines(inputStream, list1, list2);
+        readLines(reader, list1, list2);
         sortLists(list1, list2);
         return considerSimilarityScore ? getSimilarityScore(list1, list2) : getTotalDifference(list1, list2);
 
     }
 
-    private static void readLines(InputStream inputStream, List<Integer> list1, List<Integer> list2) throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+    private static void readLines(BufferedReader reader, List<Integer> list1, List<Integer> list2) throws IOException {
         String line = reader.readLine();
 
         while(line != null) {

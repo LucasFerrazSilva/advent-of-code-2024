@@ -20,8 +20,8 @@ public class Day04 extends Day {
     }
 
     @Override
-    protected long execute(boolean xFactor) throws IOException {
-        char[][] lettersMatrix = getLettersMatrix();
+    protected long execute(boolean xFactor, BufferedReader reader) throws IOException {
+        char[][] lettersMatrix = getLettersMatrix(reader);
 
         long count = 0;
 
@@ -45,22 +45,20 @@ public class Day04 extends Day {
         return count;
     }
 
-    private char[][] getLettersMatrix() throws IOException {
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(readInputFile()))) {
-            List<String> lines = new ArrayList<>();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                lines.add(line);
-            }
-
-            char[][] lettersMatrix = new char[lines.size()][lines.getFirst().length()];
-
-            for(int row = 0; row < lines.size(); row++) {
-                lettersMatrix[row] = lines.get(row).toCharArray();
-            }
-
-            return lettersMatrix;
+    private char[][] getLettersMatrix(BufferedReader reader) throws IOException {
+        List<String> lines = new ArrayList<>();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            lines.add(line);
         }
+
+        char[][] lettersMatrix = new char[lines.size()][lines.getFirst().length()];
+
+        for(int row = 0; row < lines.size(); row++) {
+            lettersMatrix[row] = lines.get(row).toCharArray();
+        }
+
+        return lettersMatrix;
     }
 
     private boolean isXMas(char[][] letters, int row, int column) {

@@ -74,20 +74,17 @@ public class Day02 extends Day {
     }
 
     @Override
-    protected long execute(boolean problemDampener) throws IOException {
+    protected long execute(boolean problemDampener, BufferedReader reader) throws IOException {
         int validReports = 0;
 
-        try(BufferedReader reader = new BufferedReader(new InputStreamReader(readInputFile()))) {
-            String line;
-
-            while((line = reader.readLine()) != null) {
-                List<String> values = new ArrayList<>(Arrays.asList(line.split(" ")));
-                if (validValues(values, problemDampener))
-                    validReports++;
-            }
-
-            return validReports;
+        String line;
+        while((line = reader.readLine()) != null) {
+            List<String> values = new ArrayList<>(Arrays.asList(line.split(" ")));
+            if (validValues(values, problemDampener))
+                validReports++;
         }
+
+        return validReports;
     }
 
     private boolean validValues(List<String> values, boolean problemDampener) {

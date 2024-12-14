@@ -55,12 +55,12 @@ public class Day03 extends Day {
     }
 
     @Override
-    protected long execute(boolean considerEnabler) throws IOException {
+    protected long execute(boolean considerEnabler, BufferedReader reader) throws IOException {
         int total = 0;
         String command = "";
         boolean enabled = true;
 
-        String commands = readCommands();
+        String commands = readCommands(reader);
         for(char c: commands.toCharArray()) {
             command += c;
 
@@ -91,17 +91,14 @@ public class Day03 extends Day {
         return total;
     }
 
-    private String readCommands() throws IOException {
-        try(BufferedReader reader = new BufferedReader(new InputStreamReader(readInputFile()))) {
-
-            String line;
-            StringBuilder commandsBuilder = new StringBuilder();
-            while((line = reader.readLine()) != null) {
-                commandsBuilder.append(line);
-            }
-
-            return commandsBuilder.toString();
+    private String readCommands(BufferedReader reader) throws IOException {
+        String line;
+        StringBuilder commandsBuilder = new StringBuilder();
+        while((line = reader.readLine()) != null) {
+            commandsBuilder.append(line);
         }
+
+        return commandsBuilder.toString();
     }
 
     private int multiply(String command) {
