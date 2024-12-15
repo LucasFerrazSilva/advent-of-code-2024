@@ -13,26 +13,10 @@ public abstract class Day {
         this.useSample = useSample;
     }
 
-    public void run() {
-        try {
-            initDay();
-
-            long initial = initPart(1);
-            long answer = part1();
-            printResults(answer, initial, 1);
-
-            initial = initPart(2);
-            answer = part2();
-            printResults(answer, initial, 2);
-
-            finishDay();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     public abstract int getDay();
     protected abstract long execute(boolean hardModeParam, BufferedReader reader) throws IOException;
+
 
     public long part1() throws IOException {
         return prepareExecute(false, 1);
@@ -49,19 +33,6 @@ public abstract class Day {
             printResults(answer, initialTime, part);
             return answer;
         }
-    }
-
-    protected void initDay() {
-        System.out.printf("%n--==< Dia %02d >==--%n%n", getDay());
-    }
-
-    protected void finishDay() {
-        System.out.println("--==============--");
-    }
-
-    protected long initPart(int part) {
-        System.out.printf("-- Parte %d --%n", part);
-        return System.currentTimeMillis();
     }
 
     public void printResults(long answer, long initialTime, int part) {

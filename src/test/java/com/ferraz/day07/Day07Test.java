@@ -18,15 +18,15 @@ public class Day07Test {
     }
     @Test
     public void testPart1() throws IOException {
-        Assert.assertEquals(-1, getDay(false).part1());
+        Assert.assertEquals(1545311493300L, getDay(false).part1());
     }
     @Test
     public void testPart2Sample() throws IOException {
-        Assert.assertEquals(-1, getDay(true).part2());
+        Assert.assertEquals(11387, getDay(true).part2());
     }
     @Test
     public void testPart2() throws IOException {
-        Assert.assertEquals(-1, getDay(false).part2());
+        Assert.assertEquals(169122112716571L, getDay(false).part2());
     }
 
 }
