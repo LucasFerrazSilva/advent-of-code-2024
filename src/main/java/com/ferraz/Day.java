@@ -19,11 +19,11 @@ public abstract class Day {
 
             long initial = initPart(1);
             long answer = part1();
-            finishPart(answer, initial);
+            printResults(answer, initial, 1);
 
             initial = initPart(2);
             answer = part2();
-            finishPart(answer, initial);
+            printResults(answer, initial, 2);
 
             finishDay();
         } catch (Exception e) {
@@ -35,16 +35,19 @@ public abstract class Day {
     protected abstract long execute(boolean hardModeParam, BufferedReader reader) throws IOException;
 
     public long part1() throws IOException {
-        return prepareExecute(false);
+        return prepareExecute(false, 1);
     }
 
     public long part2() throws IOException {
-        return prepareExecute(true);
+        return prepareExecute(true, 2);
     }
 
-    protected long prepareExecute(boolean hardModeParam) throws IOException {
+    protected long prepareExecute(boolean hardModeParam, int part) throws IOException {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(readInputFile()))) {
-            return execute(hardModeParam, reader);
+            long initialTime = System.currentTimeMillis();
+            long answer = execute(hardModeParam, reader);
+            printResults(answer, initialTime, part);
+            return answer;
         }
     }
 
@@ -61,10 +64,11 @@ public abstract class Day {
         return System.currentTimeMillis();
     }
 
-    protected void finishPart(long answer, long initialTime) {
-        long endingTime = System.currentTimeMillis();
+    public void printResults(long answer, long initialTime, int part) {
+        System.out.printf("%n--==< Dia %02d - Parte %d (%s) >==--%n%n", getDay(), part, useSample ? "Exemplo" : "Real");
         System.out.println("Resposta: " + answer);
-        System.out.printf("Tempo total: %d ms %n%n", endingTime - initialTime);
+        System.out.printf("Tempo total: %d ms %n%n", System.currentTimeMillis() - initialTime);
+        System.out.println("--===========================%s--".formatted(useSample ? "=======" : "===="));
     }
 
     protected InputStream readInputFile() {

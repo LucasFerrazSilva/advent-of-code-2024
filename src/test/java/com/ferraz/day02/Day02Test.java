@@ -6,44 +6,27 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-import static com.ferraz.TestUtils.printResults;
-
 public class Day02Test {
+
+    private Day getDay(boolean useSample) {
+        return new Day02(useSample);
+    }
 
     @Test
     public void testPart1Sample() throws IOException {
-        Day day = new Day02(true);
-        long initialTime = System.currentTimeMillis();
-        long answer = day.part1();
-        printResults(answer, initialTime);
-        Assert.assertEquals(2, answer);
+        Assert.assertEquals(2, getDay(true).part1());
     }
-
-    @Test
-    public void testPart2Sample() throws IOException {
-        Day day = new Day02(true);
-        long initialTime = System.currentTimeMillis();
-        long answer = day.part2();
-        printResults(answer, initialTime);
-        Assert.assertEquals(4, answer);
-    }
-
     @Test
     public void testPart1() throws IOException {
-        Day day = new Day02(false);
-        long initialTime = System.currentTimeMillis();
-        long answer = day.part1();
-        printResults(answer, initialTime);
-        Assert.assertEquals(321, answer);
+        Assert.assertEquals(321, getDay(false).part1());
     }
-
+    @Test
+    public void testPart2Sample() throws IOException {
+        Assert.assertEquals(4, getDay(true).part2());
+    }
     @Test
     public void testPart2() throws IOException {
-        Day day = new Day02(false);
-        long initialTime = System.currentTimeMillis();
-        long answer = day.part2();
-        printResults(answer, initialTime);
-        Assert.assertEquals(386, answer);
+        Assert.assertEquals(386, getDay(false).part2());
     }
 
 }
