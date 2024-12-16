@@ -1,4 +1,4 @@
-package com.ferraz.day02;
+package com.ferraz.day08;
 
 import com.ferraz.Day;
 import com.ferraz.DayPart;
@@ -8,20 +8,20 @@ import java.util.Map;
 
 import static com.ferraz.DayPart.*;
 
-public class Day02Test extends DayTest {
+public class Day08Test extends DayTest {
 
     @Override
     public Day getDay(boolean useSample) {
-        return new Day02(useSample);
+        return new Day08(useSample);
     }
 
     @Override
     public Map<DayPart, Long> getResults() {
         return Map.of(
-                PART1_SAMPLE, 2L,
-                PART1, 321L,
-                PART2_SAMPLE, 4L,
-                PART2, 386L
+                PART1_SAMPLE, 14L,
+                PART1, -1L,
+                PART2_SAMPLE, -1L,
+                PART2, -1L
         );
     }
 

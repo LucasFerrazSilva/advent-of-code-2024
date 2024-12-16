@@ -1,32 +1,28 @@
 package com.ferraz.day07;
 
 import com.ferraz.Day;
-import org.junit.Assert;
-import org.junit.Test;
+import com.ferraz.DayPart;
+import com.ferraz.DayTest;
 
-import java.io.IOException;
+import java.util.Map;
 
-public class Day07Test {
+import static com.ferraz.DayPart.*;
 
-    private Day getDay(boolean useSample) {
+public class Day07Test extends DayTest {
+
+    @Override
+    public Day getDay(boolean useSample) {
         return new Day07(useSample);
     }
 
-    @Test
-    public void testPart1Sample() throws IOException {
-        Assert.assertEquals(3749, getDay(true).part1());
-    }
-    @Test
-    public void testPart1() throws IOException {
-        Assert.assertEquals(1545311493300L, getDay(false).part1());
-    }
-    @Test
-    public void testPart2Sample() throws IOException {
-        Assert.assertEquals(11387, getDay(true).part2());
-    }
-    @Test
-    public void testPart2() throws IOException {
-        Assert.assertEquals(169122112716571L, getDay(false).part2());
+    @Override
+    public Map<DayPart, Long> getResults() {
+        return Map.of(
+                PART1_SAMPLE, 3749L,
+                PART1, 1545311493300L,
+                PART2_SAMPLE, 11387L,
+                PART2, 169122112716571L
+        );
     }
 
 }

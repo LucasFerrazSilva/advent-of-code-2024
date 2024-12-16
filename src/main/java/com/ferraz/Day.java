@@ -26,10 +26,10 @@ public abstract class Day {
         return prepareExecute(true, 2);
     }
 
-    protected long prepareExecute(boolean hardModeParam, int part) throws IOException {
+    protected long prepareExecute(boolean hardMode, int part) throws IOException {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(readInputFile()))) {
             long initialTime = System.currentTimeMillis();
-            long answer = execute(hardModeParam, reader);
+            long answer = execute(hardMode, reader);
             printResults(answer, initialTime, part);
             return answer;
         }

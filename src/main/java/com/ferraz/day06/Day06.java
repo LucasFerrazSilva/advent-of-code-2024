@@ -203,13 +203,13 @@ public class Day06 extends Day {
     }
 
     @Override
-    protected long execute(boolean checkValidBlocks, BufferedReader reader) throws IOException {
+    protected long execute(boolean checkValidBlockPositions, BufferedReader reader) throws IOException {
         AreaMap areaMap = getArea(reader);
         Set<PositionDirection> visitedPositionsDirections = moveGuard(areaMap, false);
         Set<Position> visitedPositions =
                 visitedPositionsDirections.stream().map(PositionDirection::position).collect(toSet());
 
-        if (!checkValidBlocks)
+        if (!checkValidBlockPositions)
             return visitedPositions.size();
 
         Set<Position> validBlockPositions = new HashSet<>();
