@@ -36,10 +36,17 @@ public abstract class Day {
     }
 
     public void printResults(long answer, long initialTime, int part) {
+        if (useSample)
+            print();
+
         System.out.printf("%n--==< Dia %02d - Parte %d (%s) >==--%n%n", getDay(), part, useSample ? "Exemplo" : "Real");
         System.out.println("Resposta: " + answer);
         System.out.printf("Tempo total: %d ms %n%n", System.currentTimeMillis() - initialTime);
         System.out.println("--===========================%s--".formatted(useSample ? "=======" : "===="));
+    }
+
+    public void print() {
+        System.out.println("Nenhuma implementação de print()");
     }
 
     protected InputStream readInputFile() {

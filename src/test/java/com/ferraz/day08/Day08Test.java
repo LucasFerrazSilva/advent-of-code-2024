@@ -19,9 +19,9 @@ public class Day08Test extends DayTest {
     public Map<DayPart, Long> getResults() {
         return Map.of(
                 PART1_SAMPLE, 14L,
-                PART1, -1L,
-                PART2_SAMPLE, -1L,
-                PART2, -1L
+                PART1, 240L,
+                PART2_SAMPLE, 34L,
+                PART2, 955L
         );
     }
 

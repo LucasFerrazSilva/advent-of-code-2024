@@ -7,6 +7,8 @@ import java.io.IOException;
 
 public class Day08 extends Day {
 
+    private ResonationMap resonationMap;
+
     public Day08(boolean useSample) {
         super(useSample);
     }
@@ -17,8 +19,14 @@ public class Day08 extends Day {
     }
 
     @Override
-    protected long execute(boolean hardMode, BufferedReader reader) throws IOException {
-        return 0;
+    protected long execute(boolean considerResonantHarmonics, BufferedReader reader) throws IOException {
+        resonationMap = new ResonationMap(reader);
+        return resonationMap.calculateAntinodes(considerResonantHarmonics);
+    }
+
+    @Override
+    public void print() {
+        resonationMap.print();
     }
 
 }
