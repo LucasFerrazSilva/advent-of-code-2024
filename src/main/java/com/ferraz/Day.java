@@ -36,8 +36,7 @@ public abstract class Day {
     }
 
     public void printResults(long answer, long initialTime, int part) {
-        if (useSample)
-            print();
+        print();
 
         System.out.printf("%n--==< Dia %02d - Parte %d (%s) >==--%n%n", getDay(), part, useSample ? "Exemplo" : "Real");
         System.out.println("Resposta: " + answer);
@@ -45,9 +44,7 @@ public abstract class Day {
         System.out.println("--===========================%s--".formatted(useSample ? "=======" : "===="));
     }
 
-    public void print() {
-        System.out.println("Nenhuma implementação de print()");
-    }
+    public void print() {}
 
     protected InputStream readInputFile() {
         ClassLoader classloader = Thread.currentThread().getContextClassLoader();
